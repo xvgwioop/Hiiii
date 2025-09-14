@@ -119,23 +119,25 @@
 </style>
  </head>
  <body id="pageBody">
-  <div class="center-container">
-    <!-- กล่องล็อกอิน -->
-    <div class="login-box" id="loginForm">
-      <h2>Hello everyone who entered. 💖</h2>
-      <input type="text" id="username" placeholder="Username na hubb">
-      <input type="password" id="password" placeholder="Password (dd,mm)">
-      <button type="button" onclick="login()">Login</button>
-    </div>
+  <div class="center-container" id="loginContainer">
+  <!-- กล่องล็อกอิน -->
+  <div class="login-box" id="loginForm">
+    <h2>Hello everyone who entered. 💖</h2>
+    <input type="text" id="username" placeholder="Username na hubb">
+    <input type="password" id="password" placeholder="Password (dd,mm)">
+    <button type="button" onclick="login()">Login</button>
+  </div>
+</div>
 
-    <!-- กล่องแสดงรูป -->
-    <div class="login-box hidden" id="imageBox">
-      <h2>Hi na hub you!! 🌸</h2>
-      <div class="image-container">
-        <img src="https://i.postimg.cc/FHhLwWpG/how-You-20250914-233456-0000.png" alt="My Image">
-      </div>
+<div class="center-container hidden" id="imageContainer">
+  <!-- กล่องแสดงรูป -->
+  <div class="login-box" id="imageBox">
+    <h2>Hi na hub you!! 🌸</h2>
+    <div class="image-container">
+      <img src="https://i.postimg.cc/FHhLwWpG/how-You-20250914-233456-0000.png" alt="My Image">
     </div>
-    </div> <!-- ปิด center-container -->
+  </div>
+</div>
 
   <!-- กล่องข้อความมุมขวาล่าง -->
   <div id="bottomRightBox">สวัสดี! ลองล็อกอินดูนะ 💖</div>
@@ -173,27 +175,25 @@
     const user = users.find(u => u.username.toLowerCase() === usernameInput && u.password === passwordInput);
 
     if (user) {
-      // ซ่อนฟอร์มล็อกอิน
-      document.getElementById('bottomRightBox').style.display = 'none';
+  // ซ่อน container ล็อกอิน
+  document.getElementById('loginContainer').style.display = 'none';
 
-      // แสดงกล่องรูป
-      const imageBox = document.getElementById('imageBox');
-      imageBox.classList.remove('hidden');
+  // แสดง container ภาพ
+  document.getElementById('imageContainer').style.display = 'flex';
+
+  // ซ่อนกล่องมุมขวาล่าง
+  document.getElementById('bottomRightBox').style.display = 'none';
+
+  // เปลี่ยนพื้นหลังและข้อความ
+  const body = document.getElementById('pageBody');
+  body.style.backgroundImage = `url('${user.background}')`;
+  body.style.backgroundRepeat = "no-repeat";
+  body.style.backgroundSize = "cover";
+  body.style.backgroundPosition = "center";
+
+  const imageBox = document.getElementById('imageBox');
+  imageBox.querySelector('h2').textContent = user.greeting;
   
-      // เปลี่ยนพื้นหลังตามบัญชี
-      const body = document.getElementById('pageBody');
-      body.style.backgroundImage = `url('${user.background}')`;
-      body.style.backgroundRepeat = "no-repeat";
-      body.style.backgroundSize = "cover";
-      body.style.backgroundPosition = "center";
-
-      // เปลี่ยนข้อความต้อนรับ
-      imageBox.querySelector('h2').textContent = user.greeting;
-      imageBox.querySelector('img').src = user.image;
-  
-      // เปลี่ยนรูปภาพ
-      imageBox.querySelector('img').src = user.image;
-
       // **ซ่อนกล่องมุมขวาล่าง**
       document.getElementById('bottomRightBox').classList.add('hidden-bottom');
 
